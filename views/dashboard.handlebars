@@ -1,0 +1,19 @@
+<div class="mb-4 pt-4">
+    <a href="/dashboard/create/"><button id="create-post" class="button is-primary is-pulled-right">Create Post</button></a>
+
+    <h2 class="title pb-4">Dashboard: Your Posts</h2>
+    <hr>
+    {{#if posts.length}}
+</div>
+
+{{#each posts as |post|}}
+{{> postinfo post}}
+
+<a href="/dashboard/edit/{{post.id}}"><button class="button mb-5 ml-5 is-warning">Edit Post</button></a>
+</div>
+{{/each}}
+
+{{else}}
+<h6 class="pb-4 has-text-centered">You have not made any posts.</h6>
+
+{{/if}}

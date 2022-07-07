@@ -44,7 +44,7 @@ const newFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        document.location.replace('/dashboard');
+        document.location.replace(`/dashboard`);
 
       } else {
         alert('Error creating new post!');
@@ -56,16 +56,22 @@ const newFormHandler = async (event) => {
   //via DELETE METHOD
   const deletePostHandler = async (event) => {
     if (event.target.hasAttribute('data-id')) {
-      const id = event.target.getAttribute('data-id');
+      const postId = event.target.getAttribute('data-id');
   
-      const response = await fetch(`/api/projects/${id}`, {
+      const response = await fetch(`/api/posts/${postId}`, {
         method: 'DELETE',
+        body: JSON.stringify({
+          post_id: id
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
   
       if (response.ok) {
-        document.location.replace('/profile');
+        document.location.replace(`/dashboard`);
       } else {
-        alert('Failed to delete project');
+        alert('Failed to delete post');
       }
     }
   };
@@ -73,6 +79,6 @@ const newFormHandler = async (event) => {
   //document.query selectors, one for creating, editing, and deleting post 
   document.querySelector('.new-post-form').addEventListener('submit', newFormHandler);
 
-  document.querySelector('.edit-form-btn').addEventListener('submit', editPostHandler)
+  document.querySelector('.edit-form-btn').addEventListener('click', editPostHandler)
   
   document.querySelector('.delete-form-btn').addEventListener('click', deletePostHandler);

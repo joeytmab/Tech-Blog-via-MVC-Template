@@ -1,20 +1,9 @@
 <!-- Loop over each object in the projects array -->
 {{#each posts as |post| }}
-<div class="row mb-4 project">
-  <div class="col-md-5">
-    <h2>
-      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-     
-      <a href="/post/{{post.id}}">{{post.title}}</a>
-    </h2>
-    <p>
-      Posted by {{post.user.name}} on {{format_date post.date_created}}
-    </p>
-  </div>
-  <div class="col-md-7">
-    <p>
-      {{post.content}}
-    </p>
-  </div>
+
+{{> postinfo post }}
 </div>
+
+{{else}}
+<h6 class="pb-4 has-text-centered is-italic">There are no posts yet.</h6>
 {{/each}}
