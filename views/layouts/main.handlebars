@@ -30,10 +30,13 @@
       <nav>
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
-        <a href="/profile">profile</a> |
-        <button class="no-button" id="logout">logout</button>
-        {{else}}
-        <a href="/login">login</a>
+        <a href="/" class="navbar-item is-hoverable pt-1">Home</a>
+                <a href="/dashboard" class="navbar-item is-hoverable pt-1">Dashboard</a>
+                <a href="/dashboard/create/" class="navbar-item is-hoverable pt-1 mr-4">Post</a>
+                <button id="logout" class="button is-danger">Logout</button>
+                {{else}}
+                <a href="/" class="navbar-item is-hoverable pt-1">Home</a>
+                <a href="/login" class="button is-primary">Login</a>
         {{/if}}
       </nav>
 
