@@ -1,0 +1,65 @@
+{{!-- Render the form based on whether it's for new post or edit post --}}
+<div class="container">
+  <h2><u>
+    {{#if newPost}}
+    New Post
+    {{/if}}
+    {{#if editPost}}
+    Edit Post
+    {{/if}}
+  </u></h2>
+
+  {{#if newPost}}
+  <form class="form newPost-form">
+  {{/if}}
+  {{#if editPost}}
+  <form class="form updatePost-form" data-id="{{id}}">
+  {{/if}}
+    <div class="form-group">
+      <label for="titlet">Title</label>
+      <input class="form-input" type="text" id="post-title"
+      {{#if editPost}}
+      value="{{title}}"
+      {{/if}}
+      >
+    </div>
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea class="form-input" type="text" id="post-content" rows="5" cols="50">
+        {{#if editPost}}
+        {{post_content}}
+        {{/if}}
+      </textarea>
+      
+    </div>
+    {{#if newPost}}
+    <div class="form-group">
+      <button class="btn btn-primary" type="submit">
+        Create new Post
+      </button>
+    </div>
+    {{/if}}
+
+    {{#if editPost}}
+    <div class="flex-row">
+      <div class="form-group">
+        <button class="btn btn-primary" type="submit">
+          Update Post
+        </button>
+      </div>
+
+      <button class="btn btn-danger" data-id="{{post.id}}" id="delete-btn">
+        Delete
+      </button>
+    </div>
+    {{/if}}
+  </form>
+</div>
+
+{{#if newPost}}
+<script src="/js/newPost.js"></script>
+{{/if}}
+
+{{#if editPost}}
+<script src="/js/updatePost.js"></script>
+{{/if}}

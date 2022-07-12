@@ -1,20 +1,17 @@
 [
     {
       "title": "Auto-invoking functions",
-      "content": "Today I learned that two parentheses after a function, without any further arguments, auto-invokes the function. The more you know!",
-      "date_created": "03/30/22",
+      "post_content": "Today I learned that two parentheses after a function, without any further arguments, auto-invokes the function. The more you know!",
       "user_id": 1
     },
     {
       "title": "A Real Conundrum",
-      "content": "What do you call a drum shared by two nuns?",
-      "date_created": "06/02/22",
+      "post_content": "What do you call a drum shared by two nuns?",
       "user_id": 2
     },
     {
       "title": "Model-View-Controller",
-      "content": "So I guess MVC comes from a programming template that means Model-View-Controller, and NOT a term from Bitcoin that means Making Valuable Crypto...",
-      "date_created": "07/01/22",
+      "post_content": "So I guess MVC comes from a programming template that means Model-View-Controller, and NOT a term from Bitcoin that means Making Valuable Crypto...",
       "user_id": 3
     }
   ]

@@ -7,26 +7,12 @@ const withAuth = require('../utils/auth');
 router.get('/', async (req, res) => {
   try {
     const postData = await Post.findAll({
-      attributes: [
-        'id',
-        'title',
-        'content',
-        'date_created'
-      ],
-
+    
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['username'],
         },
-        {
-          model: Comment,
-          attributes: ['id', 'content', 'post_id', 'user_id', 'date_created'],
-          include: {
-            model: User,
-            attributes: ['name']
-       }
-        }
       ]
     });
 
@@ -36,7 +22,9 @@ router.get('/', async (req, res) => {
     res.render('homepage', {
       posts,
       logged_In: req.session.logged_in,
+      username: req.session.username,
     });
+
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -47,58 +35,98 @@ router.get('/', async (req, res) => {
 router.get("/post/:id", withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-        attributes: [
-            'id',
-            'title',
-            'content',
-            'date_created'
-        ],
         include: [
-            {
-                model: Comment,
-                attributes: ['id', 'content', 'post_id', 'user_id', 'date_created'],
-                include: {
-                    model: User,
-                    attributes: ['name']
-                }
-            },
-            {
-                model: User,
-                attributes: ['name']
-            }
-        ]
-    })
+          {
+            model: User,
+            attributes: ['username']
+          },
+        ],
+      });
 
+      
     const post = postData.get({ plain: true });
-    console.log(post);
+    const postUser = post.user;
+      console.log("postData", post, postUser);
+
+    // Get all comment belongs to the post with match id from req params
+    const commentData = await Comment.findAll({
+      where: {
+        post_id: req.params.id,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        }
+      ],
+    });
+
+    const comments = commentData.map((comment) => comment.get({ plain: true }));
 
     res.render('post', {
-        ...post,
-        logged_in: req.session.logged_in
+      ...post,
+      postUser,
+      comments,
+      username: req.session.username,
+      logged_in: req.session.logged_in
     });
-} catch (err) {
+
+  } catch (err) {
+    console.log("err",err);
     res.status(500).json(err);
-}
-})
+  }
+});
 
 // GET '/login' (login form)
 router.get('/login', (req, res) => {
+  //if user logged in, redirect to dashboard
   if (req.session.logged_in) {
-    res.redirect('/');
+    console.log("yes looged in")
+    res.redirect('/dashboard');
     return;
+  
+  } else {
+    console.log("loogin in")
+  res.render('login')
   }
-
-  res.render('login');
     });
 
 // GET '/signup' (registration form)
 router.get('/signup', (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect('/');
-    return;
-  }
-
   res.render('signup');
     });
+
+// Use withAuth middleware to prevent access to route
+// /dashboard
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+      const postData = await Post.findAll({
+          where: {
+              // use the ID from the session
+              user_id: req.session.user_id
+          },
+          
+          include: [
+              {
+                  model: User,
+                  attributes: ['username'],
+              }
+          ]
+      })
+
+      const posts = postData.map(post => post.get({ plain: true }));
+      res.render('dashboard', {
+          posts,
+          logged_in: req.session.logged_in,
+          username: req.session.username
+      });
+
+  } catch (err) {
+      res.status(500).json(err);
+  }
+});
+
+//dashboardroutes
+
 
 module.exports = router;

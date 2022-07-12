@@ -7,54 +7,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" 
-  rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" 
-  crossorigin="anonymous">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="/css/jass.css">
-  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/jass.css">
+<link rel="stylesheet" href="/css/style.css">
   
-  <title>Tech Blog</title>
+<title>Tech Blog</title>
 
 </head>
 
 <body>
-
   <div class="flex-column justify-space-around">
-    <header class="display-flex justify-space-between align-center p-2">
-
+    {{!-- Render the top main nav bar --}}
+    <header class="bg-primary display-flex justify-space-between align-center p-5">
       <h1>
-        <a href="/form">MVC Tech Blog</a>
+        Tech-Blog
       </h1>
-
       <nav>
-        <!-- Conditionally render login or logout links -->
+        <!-- Conditionally render login or logout links -->   
+        <button class="btn btn-light" id="home">
+          <a href="/">Home</a>
+        </button>
+        
         {{#if logged_in}}
-        <a href="/" class="navbar-item is-hoverable pt-1">Home</a>
-                <a href="/dashboard" class="navbar-item is-hoverable pt-1">Dashboard</a>
-                <a href="/dashboard/create/" class="navbar-item is-hoverable pt-1 mr-4">Post</a>
-                <button id="logout" class="button is-danger">Logout</button>
-                {{else}}
-                <a href="/" class="navbar-item is-hoverable pt-1">Home</a>
-                <a href="/login" class="button is-primary">Login</a>
-        {{/if}}
-      </nav>
+        <button class="btn btn-light" id="Dashboard">
+          <a href="/dashboard">Dashboard</a>
+        </button>
 
+        <button class="btn btn-light" id="logout-btn">
+          Logout
+        </button>
+
+        {{else}}
+        <button class="btn btn-light" id="login">
+          <a href="/login">Login</a>
+        </button>
+        {{/if}}
+
+      </nav>
     </header>
 
     <main class="container container-fluid mt-5">
       <!-- Render the sub layout -->
       {{{ body }}}
     </main>
-
     <footer>
-
-      {{!-- <div class="card-body">
-      <h5 class="card-title">Created by Joey Biñas</h5>
-         <p class="card-text">Like what you see? Check out the rest of my portfolio!</p>
-         <a href="https://github.com/joeytmab" class="btn btn-primary">Github</a>
-      </div> --}}
-
+      
     </footer>
   </div>
 

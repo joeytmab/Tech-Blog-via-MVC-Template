@@ -1,19 +1,35 @@
-<div class="mb-4 pt-4">
-    <a href="/dashboard/add/"><button id="create-post" class="button is-primary is-pulled-right">Create Post</button></a>
-
-    <h2 class="title pb-4">Dashboard: Your Posts</h2>
-    <hr>
-    {{#if posts.length}}
+<div class="row justify-content-between">
+  <div class="col-4">
+   <h2><u>{{username}} DASHBOARD</u></h2>
+  </div>
+  <div class="col-2">
+     <button class="btn btn-primary" id="new-btn"> + New Post</button>
+  </div>
 </div>
 
 {{#each posts as |post|}}
-{{> postinfo post}}
+  <div class="row mb-4 text-center pb-3 post">
+    <div class="col-md-5">
+      <h2><a href="/post/{{post.id}}">{{post.title}}</a></h2>
+       <p>Created on {{format_date post.date_created}}</p>
+    </div>
+    <div class="col-md-7">
+      <p>
+        {{post.post_content}}
+      </p>
+    </div>
 
-<a href="/dashboard/edit/{{post.id}}"><button class="button mb-5 ml-5 is-warning">Edit Post</button></a>
-</div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="btn btn-primary edit-btn" data-id="{{post.id}}">
+        Edit
+      </button>
+
+      <button class="btn btn-danger del-btn" data-id="{{post.id}}">
+        Delete
+      </button>
+    </div>
+
+  </div>
 {{/each}}
 
-{{else}}
-<h6 class="pb-4 has-text-centered">You have not made any posts.</h6>
-
-{{/if}}
+<script src="/js/post.js"></script>
