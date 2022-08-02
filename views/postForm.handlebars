@@ -17,7 +17,7 @@
   {{/if}}
     <div class="form-group">
       <label for="titlet">Title</label>
-      <input class="form-input" type="text" id="post-title"
+      <input class="form-input" type="text" id="title"
       {{#if editPost}}
       value="{{title}}"
       {{/if}}
@@ -25,9 +25,9 @@
     </div>
     <div class="form-group">
       <label for="content">Content</label>
-      <textarea class="form-input" type="text" id="post-content" rows="5" cols="50">
+      <textarea class="form-input" type="text" id="content" rows="5" cols="50">
         {{#if editPost}}
-        {{post_content}}
+        {{content}}
         {{/if}}
       </textarea>
       
@@ -35,7 +35,7 @@
     {{#if newPost}}
     <div class="form-group">
       <button class="btn btn-primary" type="submit">
-        Create new Post
+        Post new post
       </button>
     </div>
     {{/if}}
@@ -48,7 +48,7 @@
         </button>
       </div>
 
-      <button class="btn btn-danger" data-id="{{post.id}}" id="delete-btn">
+      <button class="btn btn-danger" data-id="{{post.id}}" id="del-btn">
         Delete
       </button>
     </div>
