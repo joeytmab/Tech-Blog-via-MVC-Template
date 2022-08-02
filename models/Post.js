@@ -1,8 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Post extends Model {}
+class Post extends Model {};
 
+// Define each table row attributes with data validation
 Post.init(
   {
     id: {
@@ -15,8 +16,8 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    post_content: {
-      type: DataTypes.STRING,
+    content: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     date_created: {

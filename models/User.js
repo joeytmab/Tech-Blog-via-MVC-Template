@@ -4,12 +4,11 @@ const sequelize = require('../config/connection');
 
 class User extends Model {
   checkPassword(loginPw) {
-    //
-    //console.log(loginPW, this.password);
     return bcrypt.compareSync(loginPw, this.password);
   }
-}
+};
 
+// Define each table row attributes with data validation
 User.init(
   {
     id: {
@@ -21,6 +20,10 @@ User.init(
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        // Only allows letter and number combination
+        isAlphanumeric: true,
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -34,13 +37,14 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [6],
+        len: [8],
       },
     },
   },
   {
     hooks: {
       beforeCreate: async (newUserData) => {
+        // hash user password data with salt for security 
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
       },

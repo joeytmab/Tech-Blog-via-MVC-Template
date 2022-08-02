@@ -1,8 +1,9 @@
-const { Model, DataTypes } = require("sequelize");
-const sequelize = require("../config/connection");
+const { Model, DataTypes } = require('sequelize');
+const sequelize = require('../config/connection');
 
-class Comment extends Model {}
+class Comment extends Model {};
 
+// Define each table row attributes with data validation
 Comment.init(
   {
     id: {
@@ -11,7 +12,7 @@ Comment.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    comment_content: {
+    content: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -22,13 +23,6 @@ Comment.init(
         isAlphanumeric: true,
       },
     },
-    user_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "user",
-        key: "id",
-      },
-    },
     date_created: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -37,8 +31,15 @@ Comment.init(
     post_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: "post",
-        key: "id",
+        model: 'post',
+        key: 'id',
+      },
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
       },
     },
   },
@@ -47,7 +48,7 @@ Comment.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "comment",
+    modelName: 'comment',
   }
 );
 

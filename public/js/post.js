@@ -1,13 +1,9 @@
-
-//BUTTONHANDLERS
-  
-// handle event to display new post form (new post button)
+// handle event to display new post form
 const newBtnHandler = async (event) => {
-  
   document.location.replace('/api/dashboard/new');
 };
 
-// handle event to display edit current post
+// handle event to display edit current post form
 const editBtnHandler = async (event) => {
   event.preventDefault();
 
@@ -17,7 +13,7 @@ const editBtnHandler = async (event) => {
 };
 
 // handle event to delete current post
-const deleteBtnHandler = async (event) => {
+const delBtnHandler = async (event) => {
 
   const id = event.target.getAttribute('data-id');
 
@@ -33,20 +29,22 @@ const deleteBtnHandler = async (event) => {
 
 };
 
-//listener for all edit and delete buttons created for posts
+// Listen to new post click event
+document
+  .querySelector("#new-btn")
+  .addEventListener("click", newBtnHandler);
 
 const editBtns = document.querySelectorAll(".edit-btn");
 const delBtns = document.querySelectorAll(".del-btn");
 
-
-
-  //document.query selectors, one for creating, editing, and deleting post 
-document.querySelector("#new-btn").addEventListener("click", newBtnHandler);
- 
 editBtns.forEach(btn => {
   btn.addEventListener("click", editBtnHandler);
-  });
+});
 
 delBtns.forEach(btn => {
-  btn.addEventListener("click", deleteBtnHandler);
-  }); 
+  btn.addEventListener("click", delBtnHandler);
+});
+
+
+
+

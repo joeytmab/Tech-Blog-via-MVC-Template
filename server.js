@@ -6,7 +6,8 @@ const routes = require('./controllers');
 const helpers = require('./utils/helpers');
 
 const sequelize = require('./config/connection');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const SqlStoreFn = require('connect-session-sequelize');
+const SequelizeStore = SqlStoreFn(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -17,7 +18,7 @@ const hbs = exphbs.create({ helpers });
 const sess = {
   secret: 'techblog',
   cookie: {
-    expires: 8600
+    maxAge: 30 * 60 * 1000,
   },
   resave: false,
   saveUninitialized: true,

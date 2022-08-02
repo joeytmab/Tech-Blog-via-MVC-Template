@@ -1,52 +1,48 @@
 const router = require('express').Router();
-const sequelize = require('../config/connection')
-const { Post, Comment, User } = require('../models');
+const { Post, User, Comment} = require('../models');
 const withAuth = require('../utils/auth');
 
-// GET all posts for homepage
+// Route to render home page
 router.get('/', async (req, res) => {
   try {
+    // Get all post data
     const postData = await Post.findAll({
-    
       include: [
         {
           model: User,
           attributes: ['username'],
         },
-      ]
+      ],
     });
 
-    const posts = postData.map((post) =>
-      post.get({ plain: true })
-    );
+    // Serialize data
+    const posts = postData.map((post) => post.get({ plain: true }));
+
     res.render('homepage', {
       posts,
-      logged_In: req.session.logged_in,
       username: req.session.username,
+      logged_in: req.session.logged_in
     });
-
   } catch (err) {
-    console.log(err);
     res.status(500).json(err);
   }
 });
 
-// GET post by ID, render
-router.get("/post/:id", withAuth, async (req, res) => {
+// Use the custom middleware before allowing the user to access post
+router.get('/post/:id', withAuth, async (req, res) => {
   try {
+    // Get post data with match id from req params
     const postData = await Post.findByPk(req.params.id, {
-        include: [
-          {
-            model: User,
-            attributes: ['username']
-          },
-        ],
-      });
+      include: [
+        {
+          model: User,
+          attributes: ['username']
+        },
+      ],
+    });
 
-      
-    const post = postData.get({ plain: true });
-    const postUser = post.user;
-      console.log("postData", post, postUser);
+    const post = postData.get({ plan: true });
+    const postUser = post.user.get({ plan:true });
 
     // Get all comment belongs to the post with match id from req params
     const commentData = await Comment.findAll({
@@ -70,63 +66,50 @@ router.get("/post/:id", withAuth, async (req, res) => {
       username: req.session.username,
       logged_in: req.session.logged_in
     });
-
   } catch (err) {
-    console.log("err",err);
     res.status(500).json(err);
   }
 });
 
-// GET '/login' (login form)
-router.get('/login', (req, res) => {
-  //if user logged in, redirect to dashboard
-  if (req.session.logged_in) {
-    console.log("yes looged in")
-    res.redirect('/dashboard');
-    return;
-  
-  } else {
-    console.log("loogin in")
-  res.render('login')
-  }
-    });
-
-// GET '/signup' (registration form)
-router.get('/signup', (req, res) => {
-  res.render('signup');
-    });
-
-// Use withAuth middleware to prevent access to route
-// /dashboard
+// Use the custom middleware before allowing the user to access dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-      const postData = await Post.findAll({
-          where: {
-              // use the ID from the session
-              user_id: req.session.user_id
-          },
-          
-          include: [
-              {
-                  model: User,
-                  attributes: ['username'],
-              }
-          ]
-      })
+    const postData = await Post.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+    });
 
-      const posts = postData.map(post => post.get({ plain: true }));
-      res.render('dashboard', {
-          posts,
-          logged_in: req.session.logged_in,
-          username: req.session.username
-      });
+    const posts = postData.map((post) => post.get({ plain: true }));
 
+    res.render('dashboard', {
+      posts,
+      username: req.session.username,
+      logged_in: req.session.logged_in
+    });
   } catch (err) {
-      res.status(500).json(err);
+    res.status(500).json(err);
   }
 });
 
-//dashboardroutes
+router.get('/login', (req, res) => {
+  // If the user is already logged in, redirect to dashboard
+  if (req.session.logged_in) {
+    res.redirect('/api/dashboard');
+    return;
+  }
 
+  res.render('login');
+});
+
+router.get('/signup', (req, res) => {
+  res.render('signup');
+});
 
 module.exports = router;

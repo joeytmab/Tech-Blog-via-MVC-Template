@@ -1,27 +1,27 @@
 const newPostHandler = async (event) => {
-    event.preventDefault();
-  
-    const title = document.querySelector('#post-title').value.trim();
-    const post_content = document.querySelector('#post-content').value.trim();
-    
-  
-    if (title && post_content ) {
-  
-      const response = await fetch(`/api/dashboard`, {
-        method: 'POST',
-        body: JSON.stringify({ title, post_content }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      //check if all good
-      if (response.ok) {
-        document.location.replace('/dashboard');
-  
-      } else {
-        alert('Error creating new post!');
-      }
-    }
-  };
+  event.preventDefault();
 
-document.querySelector('.newPost-form').addEventListener('submit', newPostHandler);
+  const title = document.querySelector("#title").value.trim();
+  const content = document.querySelector("#content").value.trim();
+
+  if (title && content) {
+    const response = await fetch('/api/dashboard', {
+      method: 'POST',
+      body: JSON.stringify({ title, content }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      // return to dashboard
+      document.location.replace('/dashboard');
+    } else {
+      alert("New post failed to create!");
+    }
+  }
+};
+
+
+// Listen to new post form submit event
+document
+  .querySelector(".newPost-form")
+  .addEventListener("submit", newPostHandler);
