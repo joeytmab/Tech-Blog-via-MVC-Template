@@ -1,17 +1,17 @@
 [
-    {
-      "title": "Auto-invoking functions",
-      "post_content": "Today I learned that two parentheses after a function, without any further arguments, auto-invokes the function. The more you know!",
-      "user_id": 1
-    },
-    {
-      "title": "A Real Conundrum",
-      "post_content": "What do you call a drum shared by two nuns?",
-      "user_id": 2
-    },
-    {
-      "title": "Model-View-Controller",
-      "post_content": "So I guess MVC comes from a programming template that means Model-View-Controller, and NOT a term from Bitcoin that means Making Valuable Crypto...",
-      "user_id": 3
-    }
-  ]
+  {
+    "title": "Two Peanuts Were Walking Down the Street",
+    "content": "One was as-Salted!",
+    "user_id": "3"
+  },
+  {
+    "title": "Have You Heard of Religious Vegetables?",
+    "content": "I saw a salad at a church once. It said, 'Let us pray.' ",
+    "user_id": "1"
+  },
+  {
+    "title": "I Know What Programmers All Prefer.",
+    "content": "Six months into the Coding Bootcamp made me realize what a programmer's most used language is. Profanity.",
+    "user_id": "2"
+  }
+]

@@ -1,28 +1,26 @@
 [
-    {
-        
-        "comment_content": "Jim's Comment",
-        "username": "Jim",
-        "post_id": "1",
-        "user_id": "1"
-    },
-    {
-        "comment_content": "Cool!",
-        "username": "Amiko",
-        "post_id": "2",
-        "user_id": "3"
-      },
-      {
-        "comment_content": "That's pretty hilarious!",
-        "username": "Lernantino",
-        "post_id": "2",
-        "user_id": "2"
-      },
-      {
-        "comment_content": "Woof. I'm a dog.",
-        "username": "Jim",
-        "post_id": "3",
-        "user_id": "1"
-      }
-    
+  {
+    "content": "Well said!",
+    "username": "WendigoDaddy909",
+    "post_id": "1",
+    "user_id": "2"
+  },
+  {
+    "content": "Lol! That's hilarious!",
+    "username": "Pax",
+    "post_id": "2",
+    "user_id": "3"
+  },
+  {
+    "content": "LMAO! Funny post!",
+    "username": "Booboo11",
+    "post_id": "2",
+    "user_id": "2"
+  },
+  {
+    "content": "You are too funny!",
+    "username": "HooperScooper11",
+    "post_id": "3",
+    "user_id": "1"
+  }
 ]
