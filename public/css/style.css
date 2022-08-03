@@ -1,8 +1,24 @@
 .post {
-	border-bottom: 3px solid #9999ff;
+	border-bottom: 20px solid #1c1c3b;
 	padding-top: 30px;
 }
 
 .comment {
-	border-bottom: 3px solid lightseagreen !important;
+	border-bottom: 5px solid rgb(122, 212, 208) !important;
+}
+
+.pst-title{
+	font-size: 30px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	text-decoration: underline;
+}
+
+.pst-content{
+	font-size: 24px;
+}
+
+.pst-author {
+	font-size: 16px;
+	font-style:italic;
 }
