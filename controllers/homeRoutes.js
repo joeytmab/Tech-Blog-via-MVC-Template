@@ -3,6 +3,7 @@ const { Post, User, Comment} = require('../models');
 const withAuth = require('../utils/auth');
 
 // Route to render home page
+// Base route for homepage.handlebars
 router.get('/', async (req, res) => {
   try {
     // Get all post data
@@ -16,8 +17,10 @@ router.get('/', async (req, res) => {
     });
 
     // Serialize data
+    // use .map to create new array of posts
     const posts = postData.map((post) => post.get({ plain: true }));
 
+    //render homepage
     res.render('homepage', {
       posts,
       username: req.session.username,
@@ -28,7 +31,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Use the custom middleware before allowing the user to access post
+// Custom middleware required before allowing the user to access post
+// Once logged in, can view post by Id; needed to add comments.
 router.get('/post/:id', withAuth, async (req, res) => {
   try {
     // Get post data with match id from req params
@@ -57,6 +61,7 @@ router.get('/post/:id', withAuth, async (req, res) => {
       ],
     });
 
+    //create new array of created comments
     const comments = commentData.map((comment) => comment.get({ plain: true }));
 
     res.render('post', {
@@ -71,7 +76,8 @@ router.get('/post/:id', withAuth, async (req, res) => {
   }
 });
 
-// Use the custom middleware before allowing the user to access dashboard
+// Custom middleware authentication is required before
+// allowing the user to access dashboard
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const postData = await Post.findAll({
@@ -88,6 +94,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
     const posts = postData.map((post) => post.get({ plain: true }));
 
+    // Loads dashboard handlebar
     res.render('dashboard', {
       posts,
       username: req.session.username,
@@ -98,6 +105,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
   }
 });
 
+// Login
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect to dashboard
   if (req.session.logged_in) {
@@ -108,6 +116,7 @@ router.get('/login', (req, res) => {
   res.render('login');
 });
 
+// Signup
 router.get('/signup', (req, res) => {
   res.render('signup');
 });

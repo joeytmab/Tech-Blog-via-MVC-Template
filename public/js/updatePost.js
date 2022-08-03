@@ -1,6 +1,7 @@
 // handle event to update the post
 const updateFormHandler = async (event) => {
 
+  //pull values from page
   const id = event.target.getAttribute('data-id');
   const title = document.querySelector("#title").value.trim();
   const content = document.querySelector("#content").value.trim();
@@ -12,14 +13,14 @@ const updateFormHandler = async (event) => {
   });
 
   if (response.ok) {
-    // Refresh page to display updated post
+    // refresh page; this will show the updated post title and content
     document.location.replace(`/post/${id}`);
   } else {
     alert("Post not found!")
   }
 };
 
-// handle event to delete current post
+// delete post handler
 const delBtnHandler = async (event) => {
 
   const id = event.target.getAttribute('data-id');
@@ -36,10 +37,6 @@ const delBtnHandler = async (event) => {
 
 };
 
-document
-  .querySelector("#del-btn")
-  .addEventListener("click", delBtnHandler);
+document.querySelector("#del-btn").addEventListener("click", delBtnHandler);
 
-document
-  .querySelector(".updatePost-form")
-  .addEventListener("submit", updateFormHandler);
+document.querySelector(".updatePost-form").addEventListener("submit", updateFormHandler);

@@ -29,19 +29,20 @@ const delBtnHandler = async (event) => {
 
 };
 
-// Listen to new post click event
-document
-  .querySelector("#new-btn")
-  .addEventListener("click", newBtnHandler);
+// new post listener
+document.querySelector("#new-btn").addEventListener("click", newBtnHandler);
 
-const editBtns = document.querySelectorAll(".edit-btn");
-const delBtns = document.querySelectorAll(".del-btn");
+//edit, delete buttons for each post
+//needed for multiple posts populating dashboard
 
-editBtns.forEach(btn => {
+const editBtn = document.querySelectorAll(".edit-btn");
+const delBtn = document.querySelectorAll(".del-btn");
+
+editBtn.forEach(btn => {
   btn.addEventListener("click", editBtnHandler);
 });
 
-delBtns.forEach(btn => {
+delBtn.forEach(btn => {
   btn.addEventListener("click", delBtnHandler);
 });
 

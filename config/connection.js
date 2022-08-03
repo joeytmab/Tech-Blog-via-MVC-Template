@@ -1,8 +1,11 @@
+//entry point to Sequelize; dotenv required for .env file
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
 let sequelize;
 
+//jawsdb needed for Heroku database setup.
+//.env allows layer of security here, particularly with the mysql password
 if (process.env.JAWSDB_URL) {
   sequelize = new Sequelize(process.env.JAWSDB_URL);
 } else {

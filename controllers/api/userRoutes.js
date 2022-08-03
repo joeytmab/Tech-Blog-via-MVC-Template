@@ -1,8 +1,11 @@
+// set up Express router
+// User model (according to MVC practices) is required
 const router = require('express').Router();
 const { User } = require('../../models');
 
 // Route to create a new user
 router.post('/', async (req, res) => {
+  console.log ("route to create new User triggered.")
   try {
 
     const userData = await User.create({
@@ -11,6 +14,8 @@ router.post('/', async (req, res) => {
       password: req.body.password,
     });
 
+  // logged_in variable set to true for session setup.
+  // from here we can return success status with (200)
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.username = userData.username;
@@ -25,6 +30,7 @@ router.post('/', async (req, res) => {
 
 // Route to login
 router.post('/login', async (req, res) => {
+  console.log("route to login a registered user triggered.")
   try {
     const userData = await User.findOne({ where: { email: req.body.email }});
 
@@ -55,6 +61,8 @@ router.post('/login', async (req, res) => {
 // Route to logout
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
+    // Destroy session if logged_in.
+    // (204) status unique to "no content" response
     req.session.destroy(() => {
       res.status(204).end();
     });
